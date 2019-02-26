@@ -22,7 +22,7 @@
 	<div class="row spotlight" style="background-image: url('{$publicFilesDir}/{$homepageImage.uploadName|escape:"url"}')">
 		<div class="col--left">
 			<div class="spotlight__text">
-				<a href="{url page="article" op="view" path=$spotlightArticle->getBestArticleId()}">
+				<a href="{url|escape page="article" op="view" path=$spotlightArticle->getBestArticleId()}">
 					{if $spotlightIntro}
 						<div class="spotlight__context">{$spotlightIntro|strip_unsafe_html}</div>
 					{/if}
@@ -32,7 +32,7 @@
 				{if $spotlightIssue}
 					<div class="spotlight__issue">
 						From
-						<a href="{url page="issue" op="view" path=$spotlightIssue->getBestIssueId()}">{$ctThemePlugin->getIssueIdentification($spotlightIssue)|strip_unsafe_html}</a>
+						<a href="{url|escape page="issue" op="view" path=$spotlightIssue->getBestIssueId()}">{$ctThemePlugin->getIssueIdentification($spotlightIssue)|strip_unsafe_html}</a>
 					</div>
 				{/if}
 			</div>

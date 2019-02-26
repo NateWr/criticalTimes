@@ -25,15 +25,15 @@
 
 	{if $article->getLocalizedCoverImage()}
 		<div class="articleSummary__cover">
-			<a href="{url page="article" op="view" path=$article->getBestArticleId()}">
+			<a href="{url|escape page="article" op="view" path=$article->getBestArticleId()}">
 				<img src="{$article->getLocalizedCoverImageUrl()|escape}"{if $article->getLocalizedCoverImageAltText() != ''} alt="{$article->getLocalizedCoverImageAltText()|escape}"{/if}>
 			</a>
 		</div>
 	{/if}
 
-	<a href="{url page="article" op="view" path=$article->getBestArticleId()}">
+	<a href="{url|escape page="article" op="view" path=$article->getBestArticleId()}">
 		{if !$hideSection}
-			<div class="articleSummary__section">{$article->getSectionTitle()}</div>
+			<div class="articleSummary__section">{$article->getSectionTitle()|escape}</div>
 		{/if}
 		<div class="articleSummary__title">{$article->getLocalizedTitle()|strip_unsafe_html}</div>
 		<div class="articleSummary__authors">{$authorString|strip_unsafe_html}</div>
