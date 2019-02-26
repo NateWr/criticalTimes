@@ -32,7 +32,7 @@
 				{if $tocGroup.editor}
 					<div class="issueGroup__editor">{translate key="plugins.themes.criticalTimes.issue.groupEditor" editor=$tocGroup.editor|strip_unsafe_html}</div>
 				{/if}
-				<div class="issueGroup__description">{$issue->getLocalizedDescription()}</div>
+				<div class="issueGroup__description">{$issue->getLocalizedDescription()|strip_unsafe_html}</div>
 				{if $issueGalleys}
 					<div class="issueGroup__galleys">
 						{foreach from=$issueGalleys item=galley}

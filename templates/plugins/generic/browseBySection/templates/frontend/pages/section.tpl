@@ -19,13 +19,13 @@
  * @uses $countMaxPage int 10 in `2 of 10 pages`.
  *}
 
-{include file="frontend/components/header.tpl" pageTitleTranslated=$section->getLocalizedTitle()}
+{include file="frontend/components/header.tpl" pageTitleTranslated=$section->getLocalizedTitle()|escape}
 
 <div class="sectionArchive">
 	<div class="row issueGroup issueGroup--sectionArchive">
 		<div class="col--left">
-			<h1 class="sectionArchive__title">{$section->getLocalizedTitle()}</h1>
-			<div class="sectionArchive__description">{$sectionDescription}</div>
+			<h1 class="sectionArchive__title">{$section->getLocalizedTitle()|escape}</h1>
+			<div class="sectionArchive__description">{$sectionDescription|strip_unsafe_html}</div>
 		</div>
 	</div>
 
@@ -42,8 +42,8 @@
 				<div class="col--left">
 					{foreach from=$issues item="issue"}
 						{if $issue->getId() == $article->getIssueId()}
-							<a href="{url page="issue" op="view" path=$issue->getBestIssueId()}">
-								<h2 class="sectionArchive__issueTitle">{$issue->getLocalizedTitle()}</h2>
+							<a href="{url|escape page="issue" op="view" path=$issue->getBestIssueId()}">
+								<h2 class="sectionArchive__issueTitle">{$issue->getLocalizedTitle()|escape}</h2>
 								<div class="sectionArchive__issueId">{$ctThemePlugin->getIssueIdentification($issue)|strip_unsafe_html}</div>
 							</a>
 						{/if}

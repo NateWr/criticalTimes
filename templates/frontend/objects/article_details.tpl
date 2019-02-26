@@ -35,8 +35,8 @@
 <article class="articleFull">
 	<div class="articleFull__header">
 		<div class="articleFull__section">
-			<a href="{url router=$smarty.const.ROUTE_PAGE page="section" op="view" path=$section->getData('browseByPath')}">
-				{$section->getLocalizedTitle()}
+			<a href="{url|escape router=$smarty.const.ROUTE_PAGE page="section" op="view" path=$section->getData('browseByPath')}">
+				{$section->getLocalizedTitle()|escape}
 			</a>
 		</div>
 		<h1 class="articleFull__title">
@@ -129,7 +129,7 @@
 					{translate key="issue.issue"}
 				</h2>
 				<div class="articleFull__itemContent">
-					<a class="articleFull__issue" href="{url page="issue" op="view" path=$issue->getBestIssueId()}">
+					<a class="articleFull__issue" href="{url|escape page="issue" op="view" path=$issue->getBestIssueId()}">
 						{$ctThemePlugin->getIssueIdentification($issue)|strip_unsafe_html}
 					</a>
 				</div>
@@ -190,7 +190,7 @@
 			<div class="issueGroup__description">
 				{$specialSection.description}
 				<p>
-					{capture assign='issueUrl'}{url page="issue" op="view" path=$issue->getBestIssueId()}{/capture}
+					{capture assign='issueUrl'}{url|escape page="issue" op="view" path=$issue->getBestIssueId()}{/capture}
 					{translate key="plugins.themes.criticalTimes.article.fullIssue" link="<a href=\""|concat:$issueUrl|concat:'">' linkEnd="</a>"}
 				</p>
 			</div>

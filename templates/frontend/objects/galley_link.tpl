@@ -28,6 +28,6 @@
 	{assign var="parentId" value=$parent->getBestArticleId()}
 {/if}
 
-<a class="button{if !$isSupplementary} button--primary{/if}" href="{url page=$page op="view" path=$parentId|to_array:$galley->getBestGalleyId()}">
+<a class="button{if !$isSupplementary} button--primary{/if}" href="{url|escape page=$page op="view" path=$parentId|to_array:$galley->getBestGalleyId()}">
 	{$galley->getGalleyLabel()|escape}
 </a>

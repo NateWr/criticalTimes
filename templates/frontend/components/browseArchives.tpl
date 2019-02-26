@@ -22,8 +22,8 @@
 		<div class="browseArchives__list -clearFix">
 			{foreach from=$ctSections item="ctSection"}
 				<div class="browseArchives__listItem">
-					<a class="browseArchives__listItemText" href="{url router=$smarty.const.ROUTE_PAGE page="section" op="view" path=$ctSection->getData('browseByPath')}">
-						{$ctSection->getLocalizedTitle()}
+					<a class="browseArchives__listItemText" href="{url|escape router=$smarty.const.ROUTE_PAGE page="section" op="view" path=$ctSection->getData('browseByPath')}">
+						{$ctSection->getLocalizedTitle()|escape}
 					</a>
 				</div>
 			{/foreach}
