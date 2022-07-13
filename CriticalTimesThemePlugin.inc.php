@@ -1,11 +1,11 @@
 <?php
 
 /**
- * @file plugins/themes/criticalTimes/CriticalTimesThemePlugin.inc.php
+ * @file CriticalTimesThemePlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Copyright (c) 2014-2022 Simon Fraser University
+ * Copyright (c) 2003-2022 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file LICENSE.
  *
  * @class CriticalTimesThemePlugin
  * @ingroup plugins_themes_criticaltimes
@@ -15,7 +15,8 @@
  */
 
 define('CRITICAL_TIMES_MAX_GROUPS', 6);
-import('lib.pkp.classes.plugins.ThemePlugin');
+use PKP\plugins\ThemePlugin;
+use PKP\security\Role;
 
 class CriticalTimesThemePlugin extends ThemePlugin {
 
@@ -33,10 +34,10 @@ class CriticalTimesThemePlugin extends ThemePlugin {
 			'description' => 'plugins.themes.criticalTimes.spotlight.intro.description'
 		));
 
-		$context = Application::getRequest()->getContext();
+		$context = Application::get()->getRequest()->getContext();
 		if ($context) {
 			$userGroupDao = DAORegistry::getDAO('UserGroupDAO');
-			$userGroupsResult = $userGroupDao->getByRoleId($context->getId(), ROLE_ID_AUTHOR);
+			$userGroupsResult = $userGroupDao->getByRoleId($context->getId(), Role::ROLE_ID_AUTHOR);
 			$options = array();
 			while ($userGroup = $userGroupsResult->next())  {
 				$options[$userGroup->getId()] = $userGroup->getLocalizedName();
@@ -108,9 +109,9 @@ class CriticalTimesThemePlugin extends ThemePlugin {
 	 * ]
 	 */
 	public function loadTemplateData($hookName, $args) {
-		$request = Application::getRequest();
+		$request = Application::get()->getRequest();
 		$context = $request->getContext();
-		$contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
+		$contextId = $context ? $context->getId() : \PKP\core\PKPApplication::CONTEXT_ID_NONE;
 		$templateMgr = $args[0];
 		$template = $args[1];
 
@@ -146,9 +147,9 @@ class CriticalTimesThemePlugin extends ThemePlugin {
 	 * @see CriticalTimesThemePlugin::loadTemplateData()
 	 */
 	public function loadArticleTemplateData($hookName, $args) {
-		$request = Application::getRequest();
+		$request = Application::get()->getRequest();
 		$context = $request->getContext();
-		$contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
+		$contextId = $context ? $context->getId() : \PKP\core\PKPApplication::CONTEXT_ID_NONE;
 		$dispatcher = $request->getDispatcher();
 		$templateMgr = $args[0];
 		$article = $templateMgr->getTemplateVars('article');
@@ -167,7 +168,7 @@ class CriticalTimesThemePlugin extends ThemePlugin {
 			if (in_array($article->getId(), $items)) {
 				$groupArticles = array();
 				foreach ($items as $item) {
-					if (!ctype_digit($item) || $item == $article->getId()) {
+					if (!ctype_digit((string) $item) || $item == $article->getId()) {
 						continue;
 					}
 					$groupArticle = $publishedArticleDao->getById($item);
@@ -198,9 +199,9 @@ class CriticalTimesThemePlugin extends ThemePlugin {
 	 * @see CriticalTimesThemePlugin::loadTemplateData()
 	 */
 	public function loadIssueTemplateData($hookName, $args) {
-		$request = Application::getRequest();
+		$request = Application::get()->getRequest();
 		$context = $request->getContext();
-		$contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
+		$contextId = $context ? $context->getId() : \PKP\core\PKPApplication::CONTEXT_ID_NONE;
 		$templateMgr = $args[0];
 		$issue = $templateMgr->getTemplateVars('issue');
 
@@ -216,7 +217,7 @@ class CriticalTimesThemePlugin extends ThemePlugin {
 			$items = array_values(array_unique($items));
 			$articles = array();
 			foreach ($items as $item) {
-				if (!ctype_digit($item)) {
+				if (!ctype_digit((string) $item)) {
 					continue;
 				}
 				$article = $publishedArticleDao->getByArticleId($item);
@@ -247,14 +248,14 @@ class CriticalTimesThemePlugin extends ThemePlugin {
 	 * @see CriticalTimesThemePlugin::loadTemplateData()
 	 */
 	public function loadSpotlightTemplateData($hookName, $args) {
-		$request = Application::getRequest();
+		$request = Application::get()->getRequest();
 		$context = $request->getContext();
-		$contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
+		$contextId = $context ? $context->getId() : \PKP\core\PKPApplication::CONTEXT_ID_NONE;
 		$templateMgr = $args[0];
 
 		$spotlightItem = $this->getOption('spotlightItem');
 
-		if (!$spotlightItem || !ctype_digit($spotlightItem)) {
+		if (!$spotlightItem || !ctype_digit((string) $spotlightItem)) {
 			return;
 		}
 
@@ -410,7 +411,7 @@ class CriticalTimesThemePlugin extends ThemePlugin {
 			$handler = new CriticalTimesIssueTocHandler();
 			$handler->_plugin = $this;
 			if (method_exists($handler, $op)) {
-				$request = Application::getRequest();
+				$request = Application::get()->getRequest();
 				$router = $request->getRouter();
 				$serviceEndpoint = array($handler, $op);
 				$router->_authorizeInitializeAndCallRequest($serviceEndpoint, $request, $args);
@@ -445,4 +446,3 @@ class CriticalTimesThemePlugin extends ThemePlugin {
 
 }
 
-?>

@@ -1,9 +1,9 @@
 {**
  * templates/controllers/grid/issues/issueToc.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Copyright (c) 2014-2022 Simon Fraser University
+ * Copyright (c) 2003-2022 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file LICENSE.
  *
  * @brief Display the issue's table of contents
  *
@@ -17,7 +17,7 @@
 	{rdelim});
 </script>
 
-<form class="pkp_form" id="issueTocForm" method="post" action="{url router=$smarty.const.ROUTE_COMPONENT component="plugins.themes.criticalTimes.controllers.CriticalTimesIssueTocHandler" op="saveToc" issueId=$issue->getId()}">
+<form class="pkp_form" id="issueTocForm" method="post" action="{url router=\PKP\core\PKPApplication::ROUTE_COMPONENT component="plugins.themes.criticalTimes.controllers.CriticalTimesIssueTocHandler" op="saveToc" issueId=$issue->getId()}">
 	{csrf}
 
 	{fbvFormArea id="issueTocSection1"}

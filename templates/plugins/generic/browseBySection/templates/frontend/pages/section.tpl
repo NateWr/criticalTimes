@@ -1,9 +1,9 @@
 {**
- * plugins/generic/browseBySection/templates/frontend/pages/section.tpl
+ * templates/frontend/pages/section.tpl
  *
- * Copyright (c) 2017 Simon Fraser University
- * Copyright (c) 2017 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Copyright (c) 2017-2022 Simon Fraser University
+ * Copyright (c) 2017-2022 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file LICENSE.
  *
  * @brief Display the reader-facing section page.
  *
@@ -19,12 +19,12 @@
  * @uses $countMaxPage int 10 in `2 of 10 pages`.
  *}
 
-{include file="frontend/components/header.tpl" pageTitleTranslated=$section->getLocalizedTitle()}
+{include file="frontend/components/header.tpl" pageTitleTranslated=$section->getLocalizedTitle()|escape}
 
 <div class="sectionArchive">
 	<div class="row issueGroup issueGroup--sectionArchive">
 		<div class="col--left">
-			<h1 class="sectionArchive__title">{$section->getLocalizedTitle()}</h1>
+			<h1 class="sectionArchive__title">{$section->getLocalizedTitle()|escape}</h1>
 			<div class="sectionArchive__description">{$sectionDescription}</div>
 		</div>
 	</div>
@@ -43,7 +43,7 @@
 					{foreach from=$issues item="issue"}
 						{if $issue->getId() == $article->getIssueId()}
 							<a href="{url page="issue" op="view" path=$issue->getBestIssueId()}">
-								<h2 class="sectionArchive__issueTitle">{$issue->getLocalizedTitle()}</h2>
+								<h2 class="sectionArchive__issueTitle">{$issue->getLocalizedTitle()|escape}</h2>
 								<div class="sectionArchive__issueId">{$ctThemePlugin->getIssueIdentification($issue)|strip_unsafe_html}</div>
 							</a>
 						{/if}

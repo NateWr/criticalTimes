@@ -1,9 +1,9 @@
 {**
  * templates/frontend/objects/article_details.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Copyright (c) 2014-2022 Simon Fraser University
+ * Copyright (c) 2003-2022 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file LICENSE.
  *
  * @brief View of an Article which displays all details about the article.
  *  Expected to be primary object on the page.
@@ -35,8 +35,8 @@
 <article class="articleFull">
 	<div class="articleFull__header">
 		<div class="articleFull__section">
-			<a href="{url router=$smarty.const.ROUTE_PAGE page="section" op="view" path=$section->getData('browseByPath')}">
-				{$section->getLocalizedTitle()}
+			<a href="{url router=\PKP\core\PKPApplication::ROUTE_PAGE page="section" op="view" path=$section->getData('browseByPath')}">
+				{$section->getLocalizedTitle()|escape}
 			</a>
 		</div>
 		<h1 class="articleFull__title">
@@ -138,7 +138,7 @@
 			{* DOI (requires plugin) *}
 			{foreach from=$pubIdPlugins item=pubIdPlugin}
 				{if $pubIdPlugin->getPubIdType() != 'doi'}
-					{php}continue;{/php}
+					{continue}
 				{/if}
 				{assign var=pubId value=$article->getStoredPubId($pubIdPlugin->getPubIdType())}
 				{if $pubId}

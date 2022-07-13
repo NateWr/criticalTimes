@@ -1,9 +1,9 @@
 {**
- * lib/pkp/templates/frontend/components/header.tpl
+ * templates/frontend/components/header.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Copyright (c) 2014-2022 Simon Fraser University
+ * Copyright (c) 2003-2022 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file LICENSE.
  *
  * @brief Common frontend site header.
  *}
@@ -39,7 +39,7 @@
 		<header class="siteHeader" role="banner">
 			<div class="siteHeader__topBar">
 				<div class="siteHeader__logo">
-					<a href="{url page="index" router=$smarty.const.ROUTE_PAGE}">
+					<a href="{url page="index" router=\PKP\core\PKPApplication::ROUTE_PAGE}">
 						<img src="{$ctThemePath|concat:"/img/logo.png"}" alt="{translate|escape key="plugins.themes.criticalTimes.logoAltText"}">
 					</a>
 				</div>

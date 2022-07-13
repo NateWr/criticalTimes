@@ -2,14 +2,18 @@
 /**
  * @file controllers/CriticalTimesIssueTocHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Copyright (c) 2014-2022 Simon Fraser University
+ * Copyright (c) 2000-2022 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file LICENSE.
  *
  * @brief Handle requests to save the custom table of contents setup
  */
 
-import('lib.pkp.classes.handler.PKPHandler');
+use PKP\handler\PKPHandler;
+use PKP\security\Role;
+
+use APP\security\authorization\OjsIssueRequiredPolicy;
+use APP\notification\NotificationManager;
 
 class CriticalTimesIssueTocHandler extends PKPHandler {
 	/**
@@ -25,8 +29,8 @@ class CriticalTimesIssueTocHandler extends PKPHandler {
 	function __construct() {
 		parent::__construct();
 		$this->addRoleAssignment(
-			array(ROLE_ID_MANAGER),
-			array('saveToc')
+			[Role::ROLE_ID_MANAGER, Role::ROLE_ID_SITE_ADMIN],
+			['saveToc']
 		);
 	}
 
@@ -47,7 +51,6 @@ class CriticalTimesIssueTocHandler extends PKPHandler {
 			// request user vars. This is just a little hack to add the user var to
 			// the $args so it can place the issue in the authorized objects
 			$args['issueId'] = $request->getUserVar('issueId');
-			import('classes.security.authorization.OjsIssueRequiredPolicy');
 			$this->addPolicy(new OjsIssueRequiredPolicy($request, $args));
 		}
 
@@ -74,4 +77,3 @@ class CriticalTimesIssueTocHandler extends PKPHandler {
 	}
 }
 
-?>
