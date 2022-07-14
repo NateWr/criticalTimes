@@ -2,13 +2,14 @@
 /**
  * @file controllers/CriticalTimesIssueTocFormHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Copyright (c) 2014-2022 Simon Fraser University
+ * Copyright (c) 2000-2022 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file LICENSE.
  *
  * @brief Handle form to save the custom table of contents setup
  */
-import('lib.pkp.classes.form.Form');
+
+use PKP\form\Form;
 
 class CriticalTimesIssueTocFormHandler extends Form {
 	/**
@@ -24,8 +25,8 @@ class CriticalTimesIssueTocFormHandler extends Form {
 	 */
 	function __construct($issue) {
 		parent::__construct('controllers/grid/issues/issueToc.tpl');
-		$this->addCheck(new FormValidatorPost($this));
-		$this->addCheck(new FormValidatorCSRF($this));
+		$this->addCheck(new \PKP\form\validation\FormValidatorPost($this));
+		$this->addCheck(new \PKP\form\validation\FormValidatorCSRF($this));
 		$this->_issue = $issue;
 	}
 
@@ -84,7 +85,7 @@ class CriticalTimesIssueTocFormHandler extends Form {
 	 */
 	function execute($request) {
 		$context = $request->getContext();
-		$contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
+		$contextId = $context ? $context->getId() : \PKP\core\PKPApplication::CONTEXT_ID_NONE;
 		$issueDao = DAORegistry::getDAO('IssueDAO');
 
 		$this->_issue->setData('group1Items', $this->getData('group1Items'));

@@ -1,9 +1,9 @@
 {**
  * templates/frontend/pages/issue.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Copyright (c) 2014-2022 Simon Fraser University
+ * Copyright (c) 2003-2022 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file LICENSE.
  *
  * @brief Display a landing page for a single issue. It will show the table of contents
  *  (toc) or a cover image, with a click through to the toc.

@@ -1,9 +1,9 @@
 {**
  * templates/frontend/pages/indexJournal.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Copyright (c) 2014-2022 Simon Fraser University
+ * Copyright (c) 2003-2022 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file LICENSE.
  *
  * @brief Display the index page for a journal
  *
@@ -27,7 +27,7 @@
 						<div class="spotlight__context">{$spotlightIntro|strip_unsafe_html}</div>
 					{/if}
 					<div class="spotlight__title">{$spotlightArticle->getLocalizedTitle()|strip_unsafe_html}</div>
-					<div class="spotlight__authors">{$spotlightArticle->getAuthorString()|strip_unsafe_html}</div>
+					<div class="spotlight__authors">{$spotlightArticle->getCurrentPublication()->getAuthorString()|strip_unsafe_html}</div>
 				</a>
 				{if $spotlightIssue}
 					<div class="spotlight__issue">
